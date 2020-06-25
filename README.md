@@ -8,7 +8,7 @@ Documentación de Cubejs: [cube.js docs](https://cube.dev/docs)
 Para ver el ejecicio se debe posicionar sobre la rama feature/schema:
 
 ```
-git checkout feature/schema
+git checkout feature/schemas
 ```
 
 ### Correr el proyecto 🚀

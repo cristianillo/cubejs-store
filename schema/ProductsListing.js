@@ -1,6 +1,6 @@
 cube(`ProductsListing`, {
   sql: `SELECT * FROM store.products_listing`,
-  
+  title: `Lista Productos`,
   joins: {
     Purchases: {
       sql: `${CUBE}.purchase_id = ${Purchases}.id`,
@@ -15,16 +15,25 @@ cube(`ProductsListing`, {
   
   measures: {
     count: {
-      type: `count`,
-      drillMembers: [id, updateAt],
-      shown: false
+      type: `number`,
+      title: `Contar`,
+      sql: `count(*)`
     },
     
-    quantity: {
+    quantityTotal: {
+      title: `Suma Cantidad`,
       sql: `quantity`,
       type: `sum`,
-      shown: false
+      //shown: false
+    },
+
+    valueSoldProducts: {
+      title: `Valor Vendido`,
+      sql: `sum(${CUBE.quantity} * ${Products.price})`,
+      type: `number`
     }
+
+
   },
   
   dimensions: {
@@ -34,10 +43,17 @@ cube(`ProductsListing`, {
       primaryKey: true
     },
     
+    quantity: {
+      type: `number`,
+      sql: `quantity`,
+      shown: false
+    },
+
     createAt: {
+      title: `Fecha Creación`,
       sql: `create_at`,
       type: `time`,
-      shown: false
+      //shown: false
     },
     
     updateAt: {

@@ -1,3 +1,5 @@
+const { YOUNG, ADULT, OLDER_ADULT } = require("./util/constants");
+
 const SOUTH_AMERICA_CODES = ['ARG','BOL','BRA',
                             'CHL','COL','ECU',
                             'FLK','GUF','GUF',
@@ -61,9 +63,10 @@ cube(`Buyers`, {
     },
 
     age: {
+      title: `Edad`,
       type: `number`,
       sql: `age`,
-      shown: false    
+      //shown: false    
     },
 
     buyersCountSubQuery: {
@@ -74,19 +77,25 @@ cube(`Buyers`, {
     },
 
     ageString: {
+      title: `Categoría Edad`,
       type: `string`,
       case: {
         when: [
           { 
-            sql: `${CUBE.age} > 30`,
-            label: `Viejo`
+            sql: `${CUBE.age} between ${YOUNG} and ${ADULT}`,
+            label: `Joven`
+          },
+          { 
+            sql: `${CUBE.age} between ${ADULT} and ${OLDER_ADULT}`,
+            label: `Adulto`
+          },
+          { 
+            sql: `${CUBE.age} > ${OLDER_ADULT}`,
+            label: `Adulto Mayor`
           }
-        ],
-        else: {
-          label: `Joven`
-        }
+        ]
       },
-      shown: false
+      //shown: false
     },
     
     address: {
@@ -97,9 +106,10 @@ cube(`Buyers`, {
     },
     
     name: {
+      title: `Nombre`,
       sql: `name`,
       type: `string`,
-      shown: false
+      //shown: false
     },
     
     createAt: {

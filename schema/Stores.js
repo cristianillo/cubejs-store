@@ -1,6 +1,6 @@
 cube(`Stores`, {
   sql: `SELECT * FROM store.stores`,
-  
+  title: `Tiendas`,
   joins: {
     Countries: {
       sql: `${CUBE}.country_id = ${Countries.id}`,
@@ -11,9 +11,9 @@ cube(`Stores`, {
   
   measures: {
     count: {
-      type: `count`,
-      drillMembers: [id, name, updateAt],
-      shown: false
+      title: `Contar`,
+      type: `number`,
+      sql: `count(*)`
     }
   },
   
@@ -31,9 +31,10 @@ cube(`Stores`, {
     },
     
     name: {
+      title: `Nombre`,
       sql: `name`,
       type: `string`,
-      shown: false
+     // shown: false
     },
     
     code: {
@@ -43,9 +44,10 @@ cube(`Stores`, {
     },
     
     createAt: {
+      title: `Fecha Creación`,
       sql: `create_at`,
       type: `time`,
-      shown: false
+      //shown: false
     },
     
     updateAt: {
